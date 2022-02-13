@@ -257,20 +257,12 @@ MonoBehaviour:
   - 50
   - 75
   - 60
-  - 50
-  - 50
-  - 50
-  - 50
   numOfObjects:
   - 50
   - 75
   - 100
   - 250
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
+  pass_default: 50
 --- !u!64 &368872442
 MeshCollider:
   m_ObjectHideFlags: 0
