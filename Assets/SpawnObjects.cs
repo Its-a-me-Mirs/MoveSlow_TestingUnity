@@ -8,9 +8,9 @@ public class SpawnObjects : MonoBehaviour
     
     // if number of type of tagged items increase, just add more values to the two array here
     // spread of object spwan from -value[i] to value[i]
-    public float[] radiusVals = {25, 50, 75};
+    public float[] radiusVals = {25, 50, 75, 60, 50, 50, 50, 50};
     // number of the given object to spawn
-    public float[] numOfObjects = {50, 75, 100};
+    public float[] numOfObjects = {50, 75, 100, 250, 50, 50, 50, 50, 50};
 
     // stores the types of object
     GameObject[] objs;
@@ -19,8 +19,8 @@ public class SpawnObjects : MonoBehaviour
     void Start()
     {
         objs = GameObject.FindGameObjectsWithTag("spawn");
-        //int numObjects = objs.Length;
-        //Debug.Log(numObjects);
+        int numObjects = objs.Length;
+        Debug.Log(numObjects);
     }
 
     void Update() {
