@@ -10,6 +10,7 @@ public class SpawnObjects : MonoBehaviour
    
     // spread of object spwan from -value[i] to value[i]
     public float[] radiusVals = {25, 50, 75, 60};
+
     // number of the given object to spawn
     public float[] numOfObjects = {50, 75, 100, 250};
 
@@ -24,46 +25,48 @@ public class SpawnObjects : MonoBehaviour
 
     // no spawn area size
     float noSpawnVal = 2;
+    float holderX, holderZ = 0;
+    float camX, camZ = 0;
 
     void Start() {
         objs = GameObject.FindGameObjectsWithTag("spawn");
         //int numObjects = objs.Length;
         //Debug.Log(numObjects);
         
-        Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        // Debug.Log("camera y: " + cam.transform.position.y);
+        Camera cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        camX = cam.transform.position.x;
+        camZ = cam.transform.position.z;
     }
 
     void Update() {
         // TO-DO: restricting the Random.Range from including a specific area around the camera
-        // need to restrict this value: Random.Range(-passerRange, passerRange)
-        // passerRange =/= Random.Range(-passerRange, passerRange
+        // new Vector3(Random.Range(-passerRange, passerRange), 0, Random.Range(-passerRange, passerRange))
         
-        // if (passerRange > cam.transform.position.x - noSpawnVal || passerRange > cam.transform.position.x + noSpawnVal){
-        //     Keep going
-        // }
-        // else{
-        //     generate new random
-        // }
-
         // for each of the types of object, will create the number of and spread specified
         foreach(GameObject g in objs){
 
             // use value at the index if not null [radiusVals]
             if (System.Array.IndexOf(objs, g) < radiusVals.Length){
                 passerRange = radiusVals[System.Array.IndexOf(objs, g)];
-            }
-            else{
+            } else {
                 passerRange = pass_default;
             }
             // use value at the index if not null [numOfObjects]
             if (System.Array.IndexOf(objs, g) < numOfObjects.Length){
                 passerNums = numOfObjects[System.Array.IndexOf(objs, g)];
-            }
-            else{
+            } else {
                 passerNums = pass_default;
             }
-            
+
+            // random range based on area around camera and noSpawn buffer space
+            if (Random.Range(0,2) == 0){
+                holderX = Random.Range(passerRange, camX + noSpawnVal);
+                holderZ = Random.Range(passerRange, camZ + noSpawnVal);
+            } else {
+                holderX = Random.Range(passerRange, camX - noSpawnVal);
+                holderZ = Random.Range(passerRange, camZ + noSpawnVal);
+            }
+
             // number of objects to spawn for each type of object
             if (counter <= passerNums){
                 // index of the current object
@@ -76,7 +79,7 @@ public class SpawnObjects : MonoBehaviour
                 // creates instances of the object into the scene with random position within the specified range
                 // Simplified Translation:
                 // Instantiate(object to make, Position(random X range, y=0, random Z range), Rotation)
-                GameObject.Instantiate(g.gameObject, new Vector3(Random.Range(-passerRange, passerRange), 0, Random.Range(-passerRange, passerRange)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                GameObject.Instantiate(g.gameObject, new Vector3(holderX, 0, holderZ), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
                 
                 counter++;
             }
