@@ -23,9 +23,7 @@ public class SpawnObjects : MonoBehaviour
     int counter = 0;
 
     // no spawn area size
-    Vector3[] noSpawn;
-    float noSpawnVal = 10;
-    int arrayCounter = 0;
+    float noSpawnVal = 2;
 
     void Start() {
         objs = GameObject.FindGameObjectsWithTag("spawn");
@@ -34,23 +32,20 @@ public class SpawnObjects : MonoBehaviour
         
         Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         // Debug.Log("camera y: " + cam.transform.position.y);
-        noSpawn = new Vector3[(int)Mathf.Pow(noSpawnVal, 2)];
-        // foreach(Vector3 i in noSpawn){
-        //     Debug.Log(i);
-        // }
-        for (int i = 0; i < noSpawnVal; i++){
-            for (int j = 0; j < noSpawnVal; j++){
-                noSpawn[arrayCounter] = new Vector3(i,0,j);
-                arrayCounter++;
-                Debug.Log(noSpawn[arrayCounter]);
-                Debug.Log(arrayCounter);
-            }
-        }
     }
 
     void Update() {
         // TO-DO: restricting the Random.Range from including a specific area around the camera
+        // need to restrict this value: Random.Range(-passerRange, passerRange)
+        // passerRange =/= Random.Range(-passerRange, passerRange
         
+        // if (passerRange > cam.transform.position.x - noSpawnVal || passerRange > cam.transform.position.x + noSpawnVal){
+        //     Keep going
+        // }
+        // else{
+        //     generate new random
+        // }
+
         // for each of the types of object, will create the number of and spread specified
         foreach(GameObject g in objs){
 
@@ -69,7 +64,7 @@ public class SpawnObjects : MonoBehaviour
                 passerNums = pass_default;
             }
             
-            // number of objects to spawn
+            // number of objects to spawn for each type of object
             if (counter <= passerNums){
                 // index of the current object
                 //Debug.Log(System.Array.IndexOf(objs, g));
