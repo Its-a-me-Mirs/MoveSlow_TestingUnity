@@ -29,13 +29,13 @@ public class SpawnObjects : MonoBehaviour
     float camX, camZ = 0;
 
     void Start() {
-        // TO-DO: set up re-ordering of the array of objects
 
+        // TO-DO: set up re-ordering of the array of objects
         objs = GameObject.FindGameObjectsWithTag("spawn");
         //int numObjects = objs.Length;
         //Debug.Log(numObjects);
         
-        // the generation will follow wherever the x and z positions are... could change it to a seperate empty object is needed
+        // TO-DO: change center to a seperate empty object instead of the camera (use "Player" tag)
         Camera cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         camX = cam.transform.position.x;
         camZ = cam.transform.position.z;
@@ -90,6 +90,7 @@ public class SpawnObjects : MonoBehaviour
                 // Simplified Translation:
                 // Instantiate(object to make, Position(random X range, y=0, random Z range), Rotation (x=0, random y axis, z=0))
                 
+                // TO-DO: add in variations to the object's scaling
                 //Debug.Log("passerRange: " + passerRange + " holderX: " + holderX + " holderZ: " + holderZ);
                 GameObject.Instantiate(g.gameObject, new Vector3(holderX, 0, holderZ), Quaternion.Euler(new Vector3(0f, Random.Range(0f,360f), 0f)));
                 
